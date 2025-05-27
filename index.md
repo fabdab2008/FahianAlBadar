@@ -1,7 +1,3 @@
----
-layout: default
-title: Home
----
 
 # 🧠 Fahian Al Badar — Technical Writings
 

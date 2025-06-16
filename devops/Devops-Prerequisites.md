@@ -4,11 +4,11 @@ DevOps is a modern software development and IT operations methodology that empha
 
 
 ## Prerequisites
--Installing Virtual Machine (VMware) and Ubuntu(OS)
--Installing Xshell for accessing VM’s terminal from Windows host.
--Installing GitBash
--Installing Docker 
--Creating Github Account
+- Installing Virtual Machine (VMware) and Ubuntu(OS)
+- Installing Xshell for accessing VM’s terminal from Windows host.
+- Installing GitBash
+- Installing Docker 
+- Creating Github Account
 
 ## Workflow
 The process begins with installing a virtual machine using VMware and setting up Ubuntu as the operating system. To enable terminal access from the Windows host, Xshell is installed and configured. Additionally, GitBash is installed to facilitate Git operations through a Unix-like command-line interface on Windows. Docker is also installed to enable containerization and deployment of applications in isolated environments. Lastly, a GitHub account is created to manage code versioning and collaboration through a remote repository.

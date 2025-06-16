@@ -7,7 +7,7 @@ Welcome to my GitHub Pages site.
 
 ## SECTION 1: DEVOPS NOTES
 
-- [DevOps-Prerequisites](devops/Devops-Prerequisites.md)
+- [Devops-Prerequisites](devops/Devops-Prerequisites.md)
 
 ## SECTION 2: IMAGE PROCESSING WITH PYTHON
 

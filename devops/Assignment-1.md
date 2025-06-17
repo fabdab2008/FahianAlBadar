@@ -29,7 +29,7 @@ git init
 git remote add origin https://github.com/fabdab2008/DevOps.git
 git add Intro.html
 git commit -m "Initial commit"
-git push -u https://fabdab2008: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@github.com/fabdab2008/DevOps.git master
+git push -u https://fabdab2008:....@github.com/fabdab2008/DevOps.git master
 git clone https://github.com/fabdab2008/DevOps.git
 ```
 

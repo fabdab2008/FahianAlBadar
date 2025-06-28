@@ -1,33 +1,171 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title> Fahian Al Badar </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahian Al Badar - DevOps & Tech Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #28a745;
+            --background-light: #f8f9fa;
+            --background-dark: #343a40;
+            --text-color-light: #343a40;
+            --text-color-dark: #f8f9fa;
+            --card-background: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .section-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-card h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-card h3 {
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .section-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .section-card ul li {
+            margin-bottom: 10px;
+        }
+
+        .section-card ul li a {
+            text-decoration: none;
+            color: var(--text-color-light);
+            font-weight: 400;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .section-card ul li a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--background-dark);
+            color: var(--text-color-dark);
+            margin-top: 30px;
+            box-shadow: 0 -2px 4px var(--shadow);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
-  <h1>🧠 FAHIAN AL BADAR </h1>
-  <p>Welcome to my site.</p>
+    <header>
+        <h1><span style="font-size: 0.8em;">👨‍💻</span> FAHIAN AL BADAR</h1>
+        <p>Welcome to my technical notes and articles.</p>
+    </header>
 
-  <h2>📄 Articles</h2>
+    <div class="container">
+        <div class="section-card">
+            <h2>Articles</h2>
+            <h3>SECTION 1: DEVOPS NOTES</h3>
+            <ul>
+                <li><a href="devops/Devops-Prerequisites.html">1. DevOps Prerequisites</a></li>
+                <li><a href="devops/Assignment-1.html">2. Assignment 1</a></li>
+                <li><a href="devops/containerd.html">3. Using containerd</a></li>
+                <li><a href="devops/mysql-setup.html">4. Creating Dedicated MySQL User</a></li>
+                <li><a href="devops/5_Harbor_Registry.html">5. Setting up Harbor Registry</a></li>
+                <li><a href="devops/TASK_6_File_Sharing_Using_Xftp (1).html">6. File Sharing Using XFTP</a></li>
+                <li><a href="devops/Kubernetes-Jenkins.html">7. Using Kubernetes and Jenkins in Workflow</a></li>
+            </ul>
+        </div>
 
-  <h3>SECTION 1: DEVOPS NOTES</h3>
-  <ul>
-    <li><a href="devops/Devops-Prerequisites.md">1. DevOps Prerequisites</a></li>
-    <li><a href="devops/Assignment-1.md"> 2. Assignment 1</a></li>
-    <li><a href="devops/containerd.md"> 3. Using containerd</a></li>
-    <li><a href="devops/mysql-setup.md"> 4. Creating Dedicated MySQL User</a></li>
-    <li><a href="devops/5_Harbor_Registry.md"> 5. Setting up Harbor Registry</a></li>
-    <li><a href="devops/TASK_6_File_Sharing_Using_Xftp.md"> 6. File Sharing Using XFTP </a></li>
-    <li><a href="devops/Kubernetes-Jenkins.html"> 7. Using Kubernetes and Jenkins in Workflow </a></li>
+        <div class="section-card">
+            <h2>&nbsp;</h2> <h3>SECTION 2: IMAGE PROCESSING WITH PYTHON</h3>
+            <ul>
+                <li><a href="python/Image-processing.html">Image Processing Overview</a></li>
+            </ul>
+        </div>
+    </div>
 
-             
-          
-  </ul>
-
-  <h3>SECTION 2: IMAGE PROCESSING WITH PYTHON</h3>
-  <ul>
-    <li><a href="python/Image-processing.md">Image Processing Overview</a></li>
-  </ul>
+    <footer>
+        <p>&copy; 2025 Fahian Al Badar. All rights reserved.</p>
+    </footer>
 </body>
 </html>

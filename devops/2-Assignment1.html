@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASSIGNMENT 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ASSIGNMENT 1</h1>
+
+        <h2>1. Set Up Docker Environment</h2>
+        <p>Run an NGINX container using Docker on your virtual machine.</p>
+
+        <h2>2. Create a GitHub/GitLab Repository</h2>
+        <p>Create a new private repository:</p>
+        <ul>
+            <li>Add a single <code>index.html</code> file that displays your personal details (name, ID, contact, etc.).</li>
+            <li>Commit and push the file.</li>
+        </ul>
+
+        <h2>3. Pull HTML into NGINX Container</h2>
+        <p>Clone your GitHub/GitLab repository inside your VM:</p>
+        <ul>
+            <li>Configure the NGINX container to serve your <code>index.html</code> by:
+                <ul>
+                    <li>Mounting the cloned directory as a volume into the container at <code>/usr/share/nginx/html</code>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>4. Expose the Site</h2>
+        <p>Make sure the site is exposed on port 80.</p>
+        <ul>
+            <li>Access the site using your browser (e.g., <code>http://&lt;your-vm-ip&gt;</code>).</li>
+        </ul>
+
+        <hr>
+
+        <h2>Workflow</h2>
+
+        <h3>1. Creating a Private Repo and Generating a PAT</h3>
+
+        <h3>2. Clone Repository</h3>
+        <pre><code>git init
+git remote add origin https://github.com/fabdab2008/DevOps.git
+git add Intro.html
+git commit -m "Initial commit"
+git push -u https://fabdab2008:....@github.com/fabdab2008/DevOps.git master
+git clone https://github.com/fabdab2008/DevOps.git</code></pre>
+
+        <h3>3. Running NGINX Container Successfully</h3>
+        <pre><code>sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+
+docker run --name my-nginx -d -p 80:80 nginx</code></pre>
+
+        <h3>4. Mounting HTML File in the Container</h3>
+        <pre><code>ls -l ~/DevOps
+rm -rf ~/DevOps
+git clone https://github.com/fabdab2008/DevOps.git
+ls -l ~/DevOps
+
+docker stop my-nginx
+docker rm my-nginx
+
+docker run --name my-nginx -d -p 80:80 \
+  -v ~/DevOps:/usr/share/nginx/html \
+  -v ~/nginx-custom/default.conf:/etc/nginx/conf.d/default.conf \
+  nginx
+
+curl http://localhost</code></pre>
+
+        <hr>
+
+        <h2>Summary</h2>
+        <p>This task involved setting up a complete web server deployment pipeline using Docker and GitHub on a virtual machine environment. The goal was to serve a personal HTML page using the NGINX web server inside a Docker container. Below is a summary of the key steps and outcomes:</p>
+
+        <h3>Docker Environment Setup</h3>
+        <p>Docker was installed and configured on an Ubuntu-based virtual machine. A container running the official NGINX image was launched, exposing port 80 to allow web access.</p>
+
+        <h3>Version Control with GitHub</h3>
+        <p>A private GitHub repository named <strong>DevOps</strong> was created. It contained an <code>Intro.html</code> file with personal details such as name, ID, and contact. A Personal Access Token (PAT) was generated for secure authentication. The HTML file was committed and pushed to the remote repository using Git commands.</p>
+
+        <h3>Integrating GitHub with Docker (Volume Mounting)</h3>
+        <p>The repository was cloned into the VM, and the <code>Intro.html</code> file was served by NGINX through volume mounting. This was done by binding the local project directory (<code>~/DevOps</code>) to the NGINX container’s web root directory (<code>/usr/share/nginx/html</code>). Additionally, a custom NGINX configuration file was mounted to enhance server behavior.</p>
+
+        <h3>Site Exposure and Testing</h3>
+        <p>The site was exposed on port 80, making it accessible via a browser using the VM’s IP address. The <code>curl</code> command was used to verify that the server was correctly responding with the custom HTML content.</p>
+    </div>
+</body>
+</html>

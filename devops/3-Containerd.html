@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using containerd in DevOps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Using containerd in DevOps</h1>
+
+        <h2>Overview</h2>
+        <p><code>containerd</code> is a high-performance, industry-standard container runtime used for managing the lifecycle of containers. Originally a core component of Docker, it has evolved into a standalone project under the Cloud Native Computing Foundation (CNCF). It plays a vital role in modern DevOps workflows, particularly in container orchestration and automation pipelines.</p>
+
+        <h2>Use Cases in DevOps</h2>
+        <ul>
+            <li>Running containers in CI/CD pipelines</li>
+            <li>Powering container orchestration with Kubernetes</li>
+            <li>Building scalable and secure microservices infrastructure</li>
+            <li>Hosting containers in cloud-native and edge computing environments</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>In DevOps settings, <code>containerd</code> is a foundational tool that enables efficient, secure, and scalable container operations. It is especially valuable when working with Kubernetes or building minimal, production-ready container infrastructure.</p>
+
+        <hr>
+
+        <h1>USING <code>containerd</code> SEPARATELY</h1>
+
+        <h2>Step 1: Check Existing containerd Installation</h2>
+        <pre><code>which containerd
+containerd --version</code></pre>
+
+        <h2>Step 2: Install Standalone containerd</h2>
+        <pre><code>sudo apt update
+sudo apt install containerd
+
+sudo systemctl enable containerd
+sudo systemctl start containerd</code></pre>
+
+        <h2>Step 3: Use containerd via <code>ctr</code> or <code>nerdctl</code></h2>
+        <pre><code>curl -LO https://github.com/containerd/nerdctl/releases/download/v1.7.0/nerdctl-1.7.0-linux-amd64.tar.gz
+tar xzvf nerdctl-1.7.0-linux-amd64.tar.gz
+sudo mv nerdctl /usr/local/bin/
+
+nerdctl run hello-world</code></pre>
+    </div>
+</body>
+</html>

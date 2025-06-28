@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview: Installing MySQL 8, MySQL YOG, and Creating a Dedicated User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Overview: Installing MySQL 8, MySQL YOG, and Creating a Dedicated User</h1>
+        <p>This task involves setting up <strong>MySQL 8</strong> on a Linux-based virtual machine, securing the database server, and configuring access for external tools such as <strong>MySQL YOG</strong> (a GUI client). The process includes adding the official MySQL APT repository, installing the MySQL server, and performing post-installation security hardening.</p>
+        <p>Additionally, a <strong>dedicated MySQL user</strong> is created with <strong>restricted privileges</strong> and <strong>remote access</strong>, which is a best practice for enhancing security—especially when managing databases across networks. Configuration steps also ensure the database listens on external interfaces and that the system firewall allows MySQL traffic.</p>
+        <p>The end goal is to enable secure, remote access to the MySQL server using a GUI client like MySQL YOG, suitable for both development and administrative tasks.</p>
+
+        <hr>
+
+        <h2>Step-by-Step Instructions</h2>
+
+        <h3>1. Update Package Info</h3>
+        <pre><code>sudo apt update
+sudo apt upgrade -y</code></pre>
+
+        <h3>2. Add MySQL APT Repository</h3>
+        <pre><code>wget https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb</code></pre>
+
+        <h3>3. Update Package Info Again</h3>
+        <pre><code>sudo apt update</code></pre>
+
+        <h3>4. Install MySQL Server</h3>
+        <pre><code>sudo apt install mysql-server -y</code></pre>
+
+        <h3>5. Secure Your MySQL Installation</h3>
+        <pre><code>sudo mysql_secure_installation</code></pre>
+
+        <h3>6. Check MySQL Service Status</h3>
+        <pre><code>sudo systemctl status mysql</code></pre>
+
+        <hr>
+
+        <h2>Creating a Dedicated MySQL User with Remote Access</h2>
+        <blockquote><p>Creating a dedicated MySQL user with remote access and limited privileges is much more secure than enabling remote root login.</p></blockquote>
+
+        <h3>1. Log into MySQL as Root</h3>
+        <pre><code>mysql -u root -p</code></pre>
+
+        <h3>2. Create a New MySQL User</h3>
+        <pre><code>CREATE USER 'myuser'@'192.168.71.1' IDENTIFIED BY 'mypassword';
+-- Or for access from any host (for testing only)
+CREATE USER 'myuser'@'%' IDENTIFIED BY 'mypassword';</code></pre>
+
+        <h3>3. Grant Necessary Privileges</h3>
+        <pre><code>-- Access only to a specific database
+GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.* TO 'myuser'@'192.168.71.1';
+
+-- OR: Full access (less secure)
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'192.168.71.1';</code></pre>
+
+        <h3>4. Apply Changes</h3>
+        <pre><code>FLUSH PRIVILEGES;</code></pre>
+
+        <h3>5. Configure MySQL to Listen on All IPs</h3>
+        <pre><code>sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></pre>
+        <p>Find the line:</p>
+        <pre><code>bind-address = 127.0.0.1</code></pre>
+        <p>Change it to:</p>
+        <pre><code>bind-address = 0.0.0.0</code></pre>
+        <p>Then restart MySQL:</p>
+        <pre><code>sudo systemctl restart mysql</code></pre>
+
+        <h3>6. Allow MySQL Traffic Through the Firewall</h3>
+        <pre><code>sudo ufw allow 3306</code></pre>
+
+        <h3>7. Connect from MySQL YOG Using:</h3>
+        <ul>
+            <li><strong>Host/IP</strong>: the VM's IP address</li>
+            <li><strong>Username</strong>: <code>myuser</code></li>
+            <li><strong>Password</strong>: <code>mypassword</code></li>
+            <li><strong>Port</strong>: <code>3306</code></li>
+        </ul>
+    </div>
+</body>
+</html>

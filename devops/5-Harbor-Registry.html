@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 5: Setting Up Harbor Registry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 5: Setting Up Harbor Registry</h1>
+        <p>This project involves deploying <strong>Harbor</strong>, an open-source, enterprise-grade container registry, to create a secure and scalable alternative to Docker Hub for managing container images.</p>
+        <p>Harbor allows DevOps teams to host Docker images privately, with advanced features like:</p>
+        <ul>
+            <li>Role-based access control</li>
+            <li>Vulnerability scanning</li>
+            <li>Integration with CI/CD tools</li>
+            <li>Authentication systems such as LDAP</li>
+        </ul>
+        <p>Unlike Docker Hub, Harbor removes limitations like image pull rate limits and storage caps, giving teams full control over how and where their container images are stored and accessed.</p>
+        <p>For DevOps engineers, this setup:</p>
+        <ul>
+            <li>Enhances security</li>
+            <li>Improves pipeline efficiency</li>
+            <li>Supports better infrastructure management by centralizing image distribution within a controlled, self-hosted environment</li>
+        </ul>
+
+        <hr>
+
+        <h2>Docker Compose and YAML</h2>
+        <p><strong>Docker Compose</strong> is a tool used to define and manage multi-container Docker applications.</p>
+        <p><strong>YAML</strong> is a simple, human-readable way to write down settings or instructions, often used in DevOps to configure tools and environments.</p>
+        <p>Docker Compose uses YAML files to define and run multi-container applications—so instead of starting each service (e.g., web server, database, or cache) manually, everything is written in one file and launched with a single command.</p>
+        <h3>Benefits for DevOps:</h3>
+        <ul>
+            <li>Automates environment setup</li>
+            <li>Ensures consistency across systems</li>
+            <li>Simplifies testing and deployment</li>
+            <li>Makes configurations easy to share, version, and update</li>
+        </ul>
+
+        <hr>
+
+        <h2>Steps to Set Up Harbor:</h2>
+        <ol>
+            <li>Update and upgrade system packages</li>
+            <li>Install Docker</li>
+            <li>Install Docker Compose</li>
+            <li>Download Harbor installer</li>
+            <li>Extract Harbor package</li>
+            <li>Copy and edit Harbor configuration</li>
+            <li>Modify hostname and admin password in <code>harbor.yml</code></li>
+            <li>Install and start Harbor</li>
+            <li>Access Harbor UI via browser</li>
+            <li>Login using <code>admin</code> and your configured password</li>
+            <li>Create a new project</li>
+            <li>Login to Harbor via Docker CLI</li>
+            <li>Push/pull images from the registry</li>
+            <li>(Optional) Configure HTTPS with SSL certs</li>
+        </ol>
+
+        <hr>
+
+        <h2>Run the <code>install_harbor.sh</code> Script</h2>
+        <pre><code>chmod +x install_harbor.sh
+./install_harbor.sh</code></pre>
+    </div>
+</body>
+</html>

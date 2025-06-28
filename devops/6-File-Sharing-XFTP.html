@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 6: File Sharing Using Xftp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 6: File Sharing Using Xftp</h1>
+        <p>To share files using <strong>Xftp</strong> between two <strong>Ubuntu VMs</strong> (on VMware, possibly on different physical machines), follow these steps:</p>
+
+        <hr>
+
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>Xftp installed on your host or your friend's host (Windows).</li>
+            <li>Ubuntu VMs set up in VMware on both devices.</li>
+            <li>SSH server running on the Ubuntu VM(s).</li>
+            <li>Network connectivity between both machines (use <strong>Bridged</strong> or <strong>Host-Only</strong> networking in VMware).</li>
+        </ul>
+
+        <hr>
+
+        <h2>Step-by-Step Guide: File Sharing via Xftp</h2>
+
+        <h3>Step 1: Install and Enable SSH on Ubuntu</h3>
+        <p>On both VMs (your Ubuntu and your friend’s), open terminal and run:</p>
+        <pre><code>sudo apt update
+sudo apt install openssh-server -y
+sudo systemctl enable ssh
+sudo systemctl start ssh</code></pre>
+        <blockquote><p>This allows incoming SSH connections, which Xftp uses.</p></blockquote>
+
+        <hr>
+
+        <h3>Step 2: Find the IP Address of the Ubuntu VM</h3>
+        <p>In each Ubuntu VM, run:</p>
+        <pre><code>ip a</code></pre>
+        <p>Look for an IP address like <code>192.168.x.x</code> under <code>eth0</code> or <code>ens33</code>.</p>
+
+        <hr>
+
+        <h3>Step 3: Configure VMware Network Settings (if needed)</h3>
+        <p>To make both Ubuntu VMs visible to each other:</p>
+        <ul>
+            <li>In <strong>VMware &gt; Settings &gt; Network Adapter</strong>:
+                <ul>
+                    <li>Set to <strong>Bridged</strong> or <strong>Host-Only</strong> mode.</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Bridged</strong>:<br>VMs will be on the same network as your router (ideal for cross-device communication).</p>
+        <p><strong>Host-only</strong>:<br>Useful if both VMs are on the same physical host.</p>
+
+        <hr>
+
+        <h3>Step 4: Use Xftp to Connect to the Remote Ubuntu VM</h3>
+        <ul>
+            <li>Open <strong>Xftp</strong> on your host machine.</li>
+            <li>Click <strong>File &gt; New &gt; SFTP Session</strong>.</li>
+            <li>Enter the following:
+                <ul>
+                    <li><strong>Host</strong>: IP address of the friend's Ubuntu VM</li>
+                    <li><strong>Port</strong>: 22 (default SSH port)</li>
+                    <li><strong>Username</strong>: <code>ubuntu</code> or whatever your friend's username is</li>
+                    <li><strong>Password</strong>: That user's password</li>
+                </ul>
+            </li>
+            <li>Click <strong>Connect</strong>.</li>
+        </ul>
+
+        <hr>
+
+        <h3>Step 5: Transfer Files</h3>
+        <p>Use the left/right panes in Xftp to drag and drop files:</p>
+        <ul>
+            <li>From your Ubuntu to your friend’s Ubuntu.</li>
+            <li>Or vice versa.</li>
+        </ul>
+        <blockquote><p>Xftp supports both upload and download over SFTP.</p></blockquote>
+
+        <hr>
+
+        <h2>Optional: Transfer Without Xftp</h2>
+        <p>If both VMs are Ubuntu, you can also use <code>scp</code> (secure copy):</p>
+        <pre><code>scp filename user@remote_ip:/home/user/</code></pre>
+        <p><strong>Example</strong>:</p>
+        <pre><code>scp myfile.txt friend@192.168.1.20:/home/friend/</code></pre>
+
+        <hr>
+
+        <h2>Troubleshooting Tips</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Problem</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Can’t connect via Xftp</td>
+                    <td>Ensure SSH server is running and firewall allows port 22</td>
+                </tr>
+                <tr>
+                    <td>IP address not visible</td>
+                    <td>Set VMware to Bridged/Host-Only</td>
+                </tr>
+                <tr>
+                    <td>Auth fails in Xftp</td>
+                    <td>Use correct Ubuntu username/password</td>
+                </tr>
+                <tr>
+                    <td>Still blocked?</td>
+                    <td>Temporarily disable firewall: <code>sudo ufw disable</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

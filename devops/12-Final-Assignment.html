@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 12: FINAL ASSIGNMENT - DevOps Internship</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 12: FINAL ASSIGNMENT</h1>
+        <p>The DevOps Internship Final Assignment is a comprehensive, hands-on project designed to assess practical knowledge of modern DevOps methodologies. The objective is to design and implement a complete CI/CD pipeline for a simple web application using industry-standard tools. The assignment is divided into five key stages:</p>
+
+        <ul>
+            <li><strong>Web Application Development</strong> – A basic web application is developed using Flask that returns a "Hello from DevOps" message, structured with proper files and hosted on GitHub.</li>
+            <li><strong>Docker Containerization</strong> – The application is containerized using Docker by writing a Dockerfile and exposing the appropriate port, showcasing understanding of image creation and container management.</li>
+            <li><strong>CI Pipeline with GitHub Actions</strong> – A continuous integration (CI) pipeline is implemented using GitHub Actions, which triggers on code pushes, installs dependencies, runs basic tests, and builds the Docker image.</li>
+            <li><strong>Kubernetes Deployment</strong> – The containerized application is deployed to a local Kubernetes cluster (Minikube), with appropriate manifests for deployment and service, ensuring accessibility of the application via the cluster.</li>
+            <li><strong>Documentation</strong> – A detailed README file is created, explaining the tools used, setup steps, and the CI/CD workflow, supported with relevant screenshots.</li>
+        </ul>
+
+        <p>This assignment provides practical exposure to essential DevOps tools such as Git, Docker, GitHub Actions, and Kubernetes, emphasizing automation, reproducibility, and scalable deployment in modern software development workflows.</p>
+
+        <h2>Step-by-Step Implementation</h2>
+
+        <h3>Step 1: Web Application Development</h3>
+        <ul>
+            <li>A simple web application was developed using the Flask framework in Python.</li>
+            <li>The application was designed to respond with a basic message, “Hello from DevOps”, when accessed via a web browser.</li>
+            <li>The project was organized following standard best practices, with separate files for application logic (<code>app.py</code>) and dependencies (<code>requirements.txt</code>).</li>
+            <li>The complete source code was version-controlled using Git and hosted on GitHub for collaborative access and integration with CI/CD tools.</li>
+        </ul>
+
+        <h3>Step 2: Docker Containerization</h3>
+        <ul>
+            <li>A <code>Dockerfile</code> was created to containerize the Flask application, ensuring it could be executed consistently across different environments.</li>
+            <li>The Docker image was configured to expose port 5000, which is the default for Flask applications.</li>
+            <li>The container was tested locally using Docker CLI commands to verify successful build and execution.</li>
+            <li>Optionally, the image was tagged and pushed to a Docker Hub repository to demonstrate proficiency in container registry usage.</li>
+        </ul>
+
+        <h3>Step 3: Continuous Integration with GitHub Actions</h3>
+        <ul>
+            <li>A CI pipeline was configured using GitHub Actions.</li>
+            <li>A YAML workflow file (<code>ci.yml</code>) was created under <code>.github/workflows/</code> to automate tasks such as:
+                <ul>
+                    <li>Triggering on push events to the <code>main</code> branch</li>
+                    <li>Installing Python dependencies</li>
+                    <li>Running basic tests (e.g., syntax or dummy checks)</li>
+                    <li>Building the Docker image</li>
+                </ul>
+            </li>
+            <li>This step ensured that every code update was automatically validated, promoting development consistency and early error detection.</li>
+        </ul>
+
+        <h3>Step 4: Kubernetes-Based Deployment</h3>
+        <ul>
+            <li>A local Kubernetes cluster was set up using Minikube to simulate real-world deployment scenarios.</li>
+            <li>Kubernetes manifest files were written:
+                <ul>
+                    <li><code>deployment.yaml</code> defined the application’s deployment strategy and container configuration.</li>
+                    <li><code>service.yaml</code> exposed the application using a NodePort service to allow external access.</li>
+                </ul>
+            </li>
+            <li>The deployment was validated using <code>kubectl</code> commands, confirming that the pod was running and the application was accessible via browser or port-forwarding.</li>
+        </ul>
+
+        <h3>Step 5: Documentation and Reporting</h3>
+        <ul>
+            <li>A comprehensive <code>README.md</code> file was prepared, documenting the project’s purpose, structure, tools used, setup instructions, and the CI/CD workflow.</li>
+            <li>Screenshots were included to visually demonstrate:
+                <ul>
+                    <li>The running application</li>
+                    <li>Successful CI pipeline execution</li>
+                    <li>Kubernetes pod status</li>
+                    <li>Application accessibility from the cluster</li>
+                </ul>
+            </li>
+            <li>This step emphasized clarity, reproducibility, and alignment with DevOps communication practices.</li>
+        </ul>
+    </div>
+</body>
+</html>

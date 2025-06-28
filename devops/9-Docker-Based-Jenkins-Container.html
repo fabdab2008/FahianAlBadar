@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 9: RUNNING A DOCKER BASED JENKINS CONTAINER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .note {
+            background-color: #e6f7ff;
+            border-left: 5px solid #2196f3;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 9: RUNNING A DOCKER BASED JENKINS CONTAINER</h1>
+
+        <pre><code>docker run \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/jenkins-data:/var/jenkins_home \
+  --restart=always \
+  --name jenkins-cicd-rajuk \
+  -e JENKINS_DATA_LOCATION="/var/jenkins-data" \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  -d agkanon/jenkins-base-image
+</code></pre>
+        <ul>
+            <li>Runs a Jenkins container using the <code>agkanon/jenkins-base-image</code>, which is a pre-configured Docker image with Jenkins installed.</li>
+            <li>Mounts volumes to persist Jenkins data (<code>/var/jenkins-data</code>) and to allow the container to use the host Docker daemon (<code>/var/run/docker.sock</code>).</li>
+            <li>Maps ports <code>8080</code> (Jenkins web interface) and <code>50000</code> (for Jenkins agent communication) from the container to the host.</li>
+            <li>Sets environment variables like <code>JENKINS_DATA_LOCATION</code> to define where Jenkins should store its data.</li>
+            <li>Uses container options like <code>--restart=always</code> for auto-restart on failure and <code>--name</code> to assign a custom name to the container.</li>
+        </ul>
+
+        ---
+
+        <h2>Jenkins Container Setup:</h2>
+        <ul>
+            <li>Attempted to run a Jenkins container (<code>agkanon/jenkins-base-image</code>) with Docker socket and volume mounts.</li>
+            <li>Initially got a permission error, then ran with <code>sudo su</code> successfully.</li>
+            <li>The container started with ports <code>8080</code> (Jenkins UI) and <code>50000</code> (agent communication).</li>
+        </ul>
+
+        <h2>Kubernetes Configuration:</h2>
+        <ul>
+            <li>Checked for <code>~/.kube/config</code> (Kubernetes config file) but found it missing initially.</li>
+            <li>Discovered the config file in <code>/root/.kube/config</code> after switching to root.</li>
+            <li>Copied this config to <code>/var/jenkins_home/</code> to make it accessible to Jenkins.</li>
+        </ul>
+
+        <h2>Debugging Inside Jenkins Container:</h2>
+        <ul>
+            <li>Entered the Jenkins container (<code>docker exec -it 506 bash</code>).</li>
+            <li>Tried to access/modify <code>~/.kube/config</code> inside the container but faced issues:
+                <ul>
+                    <li>Missing tools like <code>nano</code>, <code>vim</code>, and <code>sudo</code>.</li>
+                    <li>Installed <code>nano</code> manually (<code>apt install nano</code>) to edit files.</li>
+                    <li>Created/edited <code>~/.kube/config</code> to ensure Kubernetes access from Jenkins.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Kubernetes Cluster Status:</h2>
+        <ul>
+            <li>Checked k0s (Kubernetes distribution) status, which was running.</li>
+            <li>Confirmed the cluster API server was accessible (server: <code>https://192.168.194.40:6443</code>).</li>
+        </ul>
+
+        <h2>Purpose:</h2>
+        <ul>
+            <li>The goal was to set up Jenkins in a Docker container and configure it to interact with a Kubernetes cluster (k0s).</li>
+            <li>The <code>~/.kube/config</code> file is critical for <code>kubectl</code> to communicate with the cluster, so it was copied into the Jenkins container.</li>
+        </ul>
+
+        <h2>Outcome:</h2>
+        <ul>
+            <li>Jenkins container is running with access to the host's Docker daemon (via <code>/var/run/docker.sock</code>).</li>
+            <li>Kubernetes config is now available inside the Jenkins container, allowing Jenkins to deploy workloads to the k0s cluster.</li>
+        </ul>
+
+        ---
+
+        <pre><code>root@ubuntu:/home/fahian# sudo systemctl start k0scontroller
+root@ubuntu:/home/fahian# sudo systemctl status k0scontroller
+
+root@ubuntu:/home/fahian# docker exec -it jenkins-k8s-new bash
+root@d9ec341e1cb2:/# nano /var/jenkins_home/config
+</code></pre>
+
+        ---
+
+        <h2>📝 Jenkins & Kubernetes (k0s) Integration Report</h2>
+        <h3>Objective:</h3>
+        <p>Set up Jenkins inside a Docker container and configure it to interact with a local Kubernetes (k0s) cluster using the Kubernetes config file.</p>
+
+        <h3>⚙️ Jenkins Docker Setup</h3>
+        <p>Pulled the Jenkins image:</p>
+        <pre><code>docker pull agkanon/jenkins-base-image
+</code></pre>
+
+        <p>Ran the Jenkins container with necessary mounts and ports:</p>
+        <pre><code>sudo docker run -d \
+  -p 8080:8080 -p 50000:50000 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v jenkins_home:/var/jenkins_home \
+  --name jenkins-k8s \
+  agkanon/jenkins-base-image
+</code></pre>
+        <p class="note">Initial attempt failed due to Docker permission error.</p>
+        <p>Resolved the issue by switching to root using <code>sudo su</code> and re-running the container.</p>
+
+        <h3>☸️ Kubernetes Config Setup</h3>
+        <ul>
+            <li>Checked for <code>~/.kube/config</code> under the current user – not found.</li>
+            <li>Found Kubernetes config at <code>/root/.kube/config</code> after switching to root.</li>
+        </ul>
+        <p>Copied the config to Jenkins home:</p>
+        <pre><code>sudo cp /root/.kube/config /var/jenkins_home/
+</code></pre>
+
+        <h3>🐳 Inside Jenkins Container</h3>
+        <p>Accessed the running Jenkins container:</p>
+        <pre><code>docker exec -it jenkins-k8s bash
+</code></pre>
+        <ul>
+            <li>Discovered missing tools: <code>nano</code>, <code>vim</code>, <code>sudo</code>.</li>
+        </ul>
+        <p>Installed <code>nano</code> editor inside the container:</p>
+        <pre><code>apt update && apt install -y nano
+</code></pre>
+        <p>Edited the kube config file if needed:</p>
+        <pre><code>nano /var/jenkins_home/config
+</code></pre>
+
+        <h3>📡 Kubernetes Cluster Status (k0s)</h3>
+        <p>Verified k0s cluster was running:</p>
+        <pre><code>k0s status
+</code></pre>
+        <p>Confirmed Kubernetes API server address:</p>
+        <pre><code>https://192.168.194.40:6443
+</code></pre>
+        <p>(Optional) Verified cluster access from inside the container:</p>
+        <pre><code>kubectl --kubeconfig=/var/jenkins_home/config get nodes
+</code></pre>
+
+        <h3>🌐 Jenkins Web UI Configuration</h3>
+        <p>Accessed Jenkins at: <a href="http://localhost:8080">http://localhost:8080</a></p>
+        <p>Installed suggested plugins and the Kubernetes plugin.</p>
+        <p>Configured Kubernetes cloud in Jenkins:</p>
+        <ul>
+            <li>Kubernetes URL: <code>https://192.168.194.40:6443</code></li>
+            <li>Config path: <code>/var/jenkins_home/config</code></li>
+        </ul>
+
+        <h3>✅ Final Result</h3>
+        <ul>
+            <li>Jenkins is running in a Docker container.</li>
+            <li>It has access to the host’s Docker socket.</li>
+            <li>Kubernetes config is accessible, enabling Jenkins to deploy to the k0s cluster.</li>
+        </ul>
+    </div>
+</body>
+</html>

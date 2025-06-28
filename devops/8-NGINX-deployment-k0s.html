@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 8: NGINX DEPLOYMENT USING k0s</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 8: NGINX DEPLOYMENT USING k0s</h1>
+        <p>To test an Nginx Deployment and Service in your Kubernetes cluster using <code>kubectl</code>, follow these step-by-step instructions:</p>
+
+        ---
+
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>You have <code>kubectl</code> installed and configured (you mentioned it's done).</li>
+            <li>You have access to a running Kubernetes cluster (e.g., minikube, kind, or cloud-based).</li>
+            <li>You’re using a terminal with access to <code>kubectl</code>.</li>
+        </ul>
+
+        ---
+
+        <h2>Step-by-Step Instructions</h2>
+
+        <h3>Create Nginx Deployment YAML</h3>
+        <p>Create a file named <code>nginx-deployment.yaml</code>:</p>
+        <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+</code></pre>
+
+        <h3>Create Nginx Service YAML</h3>
+        <p>Create a file named <code>nginx-service.yaml</code>:</p>
+        <pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+</code></pre>
+
+        <h3>Apply the YAML Files</h3>
+        <p>Apply the deployment and service using <code>kubectl</code>:</p>
+        <pre><code>kubectl apply -f nginx-deployment.yaml
+kubectl apply -f nginx-service.yaml
+</code></pre>
+
+        <h3>Verify the Deployment</h3>
+        <p>Check the deployment and pod status:</p>
+        <pre><code>kubectl get deployments
+kubectl get pods
+</code></pre>
+        <p>You should see 2 running nginx pods.</p>
+
+        <h3>Verify the Service</h3>
+        <p>Check that the service is running:</p>
+        <pre><code>kubectl get svc
+</code></pre>
+        <p>Note the <b>NodePort</b> assigned to <code>nginx-service</code> (e.g., <code>30007</code>).</p>
+
+        <h3>Test Nginx in Browser or via Curl</h3>
+        <p>If you're using minikube, use:</p>
+        <pre><code>minikube service nginx-service
+</code></pre>
+        <p>It will open the Nginx welcome page in your default browser.</p>
+        <p>If you're using another setup:</p>
+        <ul>
+            <li>Find your node IP (e.g., <code>minikube ip</code> or <code>kubectl get nodes -o wide</code>).</li>
+            <li>Access it in your browser or curl:</li>
+        </ul>
+        <pre><code>curl http://&lt;NODE-IP&gt;:&lt;NODEPORT&gt;
+</code></pre>
+        <p>You should see the Nginx welcome message (HTML content).</p>
+
+        ---
+
+        <h2>Optional Cleanup</h2>
+        <p>To delete everything:</p>
+        <pre><code>kubectl delete -f nginx-deployment.yaml
+kubectl delete -f nginx-service.yaml
+</code></pre>
+    </div>
+</body>
+</html>

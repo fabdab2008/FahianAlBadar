@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 10: ASSIGNMENT 2 - Kubernetes Deployment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .question {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .answer {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 10: ASSIGNMENT 2 - Kubernetes Deployment</h1>
+        <p>This assignment is designed to help students understand what a Deployment is in Kubernetes, how it operates, and how to define and work with one using a YAML manifest.</p>
+
+        <ol>
+            <li>
+                <div class="question">What is a Kubernetes Deployment?</div>
+                <div class="answer">A Deployment in Kubernetes is a controller that manages a set of identical Pods. It ensures that the desired number of Pods are always running and allows for updates, rollbacks, and scaling. It acts as a manager that keeps your application running smoothly.</div>
+            </li>
+            <li>
+                <div class="question">What are the main purposes of using a Deployment?</div>
+                <div class="answer">Deployments simplify the process of managing Pods. They automate the creation, deletion, and updating of Pods. Deployments also support rolling updates, making it easier to introduce new versions of an application without downtime.</div>
+            </li>
+            <li>
+                <div class="question">Why do we use replicas in a Deployment?</div>
+                <div class="answer">Replicas are used to run multiple copies of a Pod to ensure high availability and load distribution. If one Pod fails, others can still serve the application. Replication helps in scaling and fault tolerance.</div>
+            </li>
+            <li>
+                <div class="question">What is the relationship between a Pod, a Deployment, and a Container?</div>
+                <div class="answer">A Deployment manages ReplicaSets, which manage Pods. Each Pod contains one or more Containers, which are the actual running instances of your application code. Deployments define how many Pods should run, what containers they should contain, and how to manage them.</div>
+            </li>
+        </ol>
+
+        <h2>Part 2: YAML File Explanation</h2>
+        <p>The following YAML manifest defines a Deployment for an app called "my-app". Here's an explanation of each part:</p>
+
+        <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: my-app:1.0
+        ports:
+        - containerPort: 80
+</code></pre>
+
+        <ul>
+            <li><strong><code>apiVersion</code>:</strong> Defines the version of the Kubernetes API used. <code>apps/v1</code> is the standard version for managing Deployments.</li>
+            <li><strong><code>kind</code>:</strong> Specifies the type of Kubernetes object. In this case, it's a <code>Deployment</code>.</li>
+            <li><strong><code>metadata.name</code>:</strong> Gives the Deployment a unique name, here it's <code>my-app</code>.</li>
+            <li><strong><code>spec.replicas</code>:</strong> Defines how many identical Pods should be running. <code>3</code> means Kubernetes will maintain three running Pods.</li>
+            <li><strong><code>spec.selector.matchLabels</code>:</strong> Used by the Deployment to select which Pods to manage, based on matching labels. Here, it looks for Pods with the label <code>app: my-app</code>.</li>
+            <li><strong><code>template.metadata.labels</code>:</strong> Labels to assign to the Pods that the Deployment creates. These must match the selector for proper association.</li>
+            <li><strong><code>template.spec.containers</code>:</strong> Lists the containers that will run inside each Pod. Each container includes configuration like image and exposed ports.</li>
+            <li><strong><code>image</code> and <code>containerPort</code>:</strong> <code>image: my-app:1.0</code> tells Kubernetes which container image to use. <code>containerPort: 80</code> indicates the container listens on port 80, typically for web traffic.</li>
+        </ul>
+
+        <ol start="1">
+            <li>
+                <div class="question">What happens if one Pod crashes?</div>
+                <div class="answer">Kubernetes automatically detects the crash and creates a new Pod to replace the failed one, maintaining the desired number of replicas.</div>
+            </li>
+            <li>
+                <div class="question">How does a Deployment create or manage Pods?</div>
+                <div class="answer">The Deployment creates a ReplicaSet, which then launches and monitors the desired number of Pods. If Pods are deleted or crash, they are recreated.</div>
+            </li>
+            <li>
+                <div class="question">What is the relationship between a Deployment and a ReplicaSet?</div>
+                <div class="answer">The Deployment manages one or more ReplicaSets. Each ReplicaSet maintains a specified number of Pods. When the Deployment is updated, a new ReplicaSet may be created.</div>
+            </li>
+            <li>
+                <div class="question">How would you update the app to version <code>my-app:2.0</code>?</div>
+                <div class="answer">Modify the Deployment YAML’s image field:
+                <pre><code>kubectl set image deployment/my-app my-app-container=my-app:2.0</code></pre>
+                </div>
+            </li>
+            <li>
+                <div class="question">What change would you make in the YAML to scale the app to 5 replicas?</div>
+                <div class="answer">Change the <code>replicas</code> field:
+                <pre><code>kubectl scale deployment my-app --replicas=5</code></pre>
+                </div>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 11: PHP PROJECT, PIPELINE FOR JENKINS CI AND ARGO CD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 11: PHP PROJECT, PIPELINE FOR JENKINS CI AND ARGO CD</h1>
+
+        <ol>
+            <li>
+                <h2>Prerequisite Installation</h2>
+                <p>The necessary tools were installed on the virtual machine, including:</p>
+                <ul>
+                    <li>Git for version control</li>
+                    <li>Docker for containerization</li>
+                    <li>PHP for local testing of the application</li>
+                    <li>Jenkins for implementing continuous integration</li>
+                    <li>Kubernetes (e.g., via Minikube or Kind) for container orchestration</li>
+                    <li>Argo CD for GitOps-based continuous deployment</li>
+                </ul>
+            </li>
+            <li>
+                <h2>Project Initialization</h2>
+                <p>A new project directory was created (<code>php-hello-world</code>) containing:</p>
+                <ul>
+                    <li><code>index.php</code>: A basic PHP script displaying "Hello, World!"</li>
+                    <li><code>Dockerfile</code>: Configuration for building a PHP-Apache container image</li>
+                    <li><code>README.md</code>: A project description file</li>
+                    <li>Directory structure for CI/CD (<code>jenkins/</code>) and deployment manifests (<code>k8s/</code>)</li>
+                </ul>
+            </li>
+            <li>
+                <h2>GitHub Integration</h2>
+                <p>The local project was initialized as a Git repository. A new GitHub repository was created, and the local code was pushed to the remote repository.</p>
+            </li>
+            <li>
+                <h2>Jenkins Pipeline Configuration</h2>
+                <p>A <code>Jenkinsfile</code> was created to define the CI/CD pipeline. The stages included:</p>
+                <ul>
+                    <li>Cloning the repository</li>
+                    <li>Building the Docker image</li>
+                    <li>Pushing the image to Docker Hub</li>
+                    <li>Placeholder for triggering an Argo CD deployment update</li>
+                </ul>
+            </li>
+            <li>
+                <h2>Kubernetes Deployment Manifests</h2>
+                <p>Kubernetes manifests were created under the <code>k8s/</code> directory:</p>
+                <ul>
+                    <li>A Deployment to run the PHP container</li>
+                    <li>A Service to expose the application on port 80</li>
+                </ul>
+                <p>These manifests specify how the application should be run within the Kubernetes cluster.</p>
+            </li>
+            <li>
+                <h2>Argo CD Setup</h2>
+                <p>Argo CD was installed in the Kubernetes cluster. An Application resource was defined to:</p>
+                <ul>
+                    <li>Automatically synchronize the Kubernetes manifests from the GitHub repository</li>
+                    <li>Continuously monitor and apply changes using GitOps principles</li>
+                </ul>
+            </li>
+            <li>
+                <h2>Jenkins Configuration</h2>
+                <p>Jenkins was configured to:</p>
+                <ul>
+                    <li>Use the GitHub repository as the source</li>
+                    <li>Authenticate with Docker Hub using credentials</li>
+                    <li>Run the pipeline defined in <code>jenkins/Jenkinsfile</code></li>
+                </ul>
+            </li>
+            <li>
+                <h2>Continuous Integration and Deployment</h2>
+                <p>A Jenkins build was triggered, which:</p>
+                <ul>
+                    <li>Built the Docker image</li>
+                    <li>Pushed it to Docker Hub</li>
+                    <li>Enabled Argo CD to detect the image change and deploy it to the cluster</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>Summary</h2>
+        <p>This project establishes a full DevOps pipeline:</p>
+        <ul>
+            <li>The source code is maintained in GitHub.</li>
+            <li>Jenkins handles continuous integration by building and pushing Docker images.</li>
+            <li>Kubernetes runs the containerized application.</li>
+            <li>Argo CD performs automated, Git-driven continuous deployment.</li>
+        </ul>
+        <p>This architecture follows modern DevOps and GitOps best practices for scalable, automated application delivery.</p>
+    </div>
+</body>
+</html>

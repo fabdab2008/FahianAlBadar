@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 7: USING KUBERNETES AND JENKINS IN WORKFLOW</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TASK 7: USING KUBERNETES AND JENKINS IN WORKFLOW</h1>
+
+        <hr>
+
+        <h2>1. Tools and Their Roles</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Harbor</strong></td>
+                    <td>Private Docker registry to store and manage images</td>
+                </tr>
+                <tr>
+                    <td><strong>Jenkins</strong></td>
+                    <td>CI/CD automation tool for build, test, and deploy</td>
+                </tr>
+                <tr>
+                    <td><strong>Kubernetes</strong></td>
+                    <td>Container orchestrator to run and manage your app</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>CI/CD Workflow: Jenkins + Harbor + K8s</h2>
+
+        <h3>Step 1: Code Push</h3>
+        <ul>
+            <li>Dev pushes code to GitHub</li>
+        </ul>
+
+        <h3>Step 2: Jenkins Job Starts</h3>
+        <ul>
+            <li>Jenkins pulls the code</li>
+            <li>Builds a Docker image</li>
+        </ul>
+
+        <h3>Step 3: Push to Harbor</h3>
+        <ul>
+            <li>Jenkins authenticates to Harbor (your private registry)</li>
+            <li>Pushes image: <code>harbor.mycompany.com/project/myapp:build-42</code></li>
+        </ul>
+
+        <h3>Step 4: Deploy to Kubernetes</h3>
+        <ul>
+            <li>Jenkins updates the image tag in Kubernetes manifests</li>
+            <li>Runs <code>kubectl apply -f deployment.yaml</code></li>
+        </ul>
+        <h4>Kubernetes:</h4>
+        <ul>
+            <li>Pulls the image from Harbor</li>
+            <li>Replaces old pods with new pods (rolling update)</li>
+        </ul>
+
+        <hr>
+
+        <h2>4. Jenkinsfile Example</h2>
+        <pre><code>pipeline {
+  agent any
+
+  environment {
+    REGISTRY = 'harbor.mycompany.com/myproject'
+    IMAGE = "${REGISTRY}/myapp:${BUILD_NUMBER}"
+    KUBE_CONFIG = credentials('kubeconfig-secret')
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/user/myapp.git'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t $IMAGE .'
+      }
+    }
+
+    stage('Push to Harbor') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'harbor-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+          sh '''
+            echo "$PASS" | docker login $REGISTRY -u $USER --password-stdin
+            docker push $IMAGE
+          '''
+        }
+      }
+    }
+
+    stage('Deploy to Kubernetes') {
+      steps {
+        withCredentials([file(credentialsId: 'kubeconfig-secret', variable: 'KUBECONFIG')]) {
+          sh '''
+            kubectl set image deployment/myapp myapp=$IMAGE --kubeconfig=$KUBECONFIG
+          '''
+        }
+      }
+    }
+  }
+}</code></pre>
+
+        <hr>
+
+        <h2>Summary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Harbor</strong></td>
+                    <td>Secure container registry</td>
+                </tr>
+                <tr>
+                    <td><strong>Jenkins</strong></td>
+                    <td>Build, push, deploy automation</td>
+                </tr>
+                <tr>
+                    <td><strong>Kubernetes</strong></td>
+                    <td>Run and manage the deployed application</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>This is a production-grade CI/CD stack and widely used in enterprise environments.</p>
+    </div>
+</body>
+</html>

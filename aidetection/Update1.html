@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thesis Documentation Part I: Workflow Report on AI Image Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 40px;
+      max-width: 800px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    ul {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Thesis Workflow Update Report</h1>
+  <p><strong>Title:</strong> Detection of AI-Generated Images</p>
+  <p><strong>Date:</strong> July 2025</p>
+  
+
+  <h2>1. Initial Research Domain</h2>
+  <p>
+    The thesis commenced with the identification of a pertinent and timely research domain: the detection of AI-generated images. This subject was selected based on the growing societal risks associated with the malicious deployment of synthetic visual content. AI-generated imagery, when used with harmful intent, has the potential to mislead the public, facilitate impersonation, propagate misinformation, and disrupt social stability.
+  </p>
+
+  <h2>2. Preliminary Investigation</h2>
+  <p>To explore this domain, the research team reviewed and tested several existing detection methodologies, including:</p>
+
+  <h3>2.1 Photo Response Non-Uniformity (PRNU)</h3>
+  <p>
+    PRNU analysis involves the extraction of device-specific sensor noise patterns. These patterns serve as a unique fingerprint of imaging devices and are typically absent in synthetic AI images. PRNU was considered a promising feature for differentiating real from generated content.
+  </p>
+
+  <h3>2.2 Error Level Analysis (ELA)</h3>
+  <p>
+    ELA enables forensic examination of image compression artifacts. AI-generated images often exhibit abnormal error levels due to generation inconsistencies. This technique allows visual and quantitative assessment of localized editing or fabrication.
+  </p>
+
+  <h3>2.3 Proposed Custom Convolutional Neural Network (CNN)</h3>
+  <p>
+    The team proposed designing a specialized CNN architecture trained on features extracted from PRNU and ELA outputs. This model would aim to learn complex patterns and interactions across multiple layers, enhancing the classification of images as authentic or synthetic.
+  </p>
+
+  <h2>3. Sensor-Level Realism and Technical Debate</h2>
+  <p>
+    A core hypothesis considered during the investigation was that current AI image generators fail to replicate sensor-level details, such as:
+  </p>
+  <ul>
+    <li>Photo Response Non-Uniformity (PRNU)</li>
+    <li>Dark Signal Non-Uniformity (DSNU)</li>
+    <li>Pixel-level defects</li>
+    <li>Lens aberrations</li>
+    <li>Analog-to-Digital Converter (ADC) variability</li>
+  </ul>
+
+  <h3>Validity of Hypothesis as of July 2025</h3>
+  <p>
+    While generative models have advanced significantly, current empirical evidence suggests that accurate replication of device-specific noise remains unresolved. Although some state-of-the-art models attempt to simulate plausible sensor artifacts through adversarial training or physics-informed generative techniques, they do not fully capture the uniqueness inherent in actual device fingerprints.
+  </p>
+
+  <h4>Models Reviewed:</h4>
+  <ul>
+    <li>Gemini</li>
+    <li>GPT-4o</li>
+    <li>DeepSeek R1</li>
+    <li>Apple Intelligence (A18 Bionic)</li>
+  </ul>
+  <p>
+    These models demonstrate progress in multimodal realism and context-aware generation, but none have yet achieved genuine emulation of low-level sensor behavior to the extent required for complete forensic authenticity.
+  </p>
+
+  <h2>4. Thesis Refinement and Scope Definition</h2>
+  <p>
+    Following these investigations, the research team acknowledged the need to refine the thesis scope and establish a concrete problem statement. The initial domain encompasses a broad set of challenges, and narrowing the focus is critical for producing meaningful and measurable outcomes.
+  </p>
+
+  <h3>Recommended Focus Areas:</h3>
+  <ul>
+    <li>Detection of AI images based on sensor-level discrepancies</li>
+    <li>Integration of handcrafted and learned features (e.g., PRNU, ELA) into neural architectures</li>
+    <li>Evaluation of CNN robustness against adversarial image generation</li>
+  </ul>
+
+  <h2>5. Next Steps</h2>
+  <p>The following actions are planned for the next phase:</p>
+  <ul>
+    <li>Finalization of a specific problem statement</li>
+    <li>Design of experimental methodology</li>
+    <li>Construction and training of the proposed CNN architecture</li>
+    <li>Dataset acquisition with appropriate labeling of real and AI-generated images</li>
+    <li>Performance benchmarking against existing detection frameworks</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>
+    This report reflects the evolution of the thesis from a broad conceptual exploration to a focused inquiry into the detection of synthetic imagery via sensor-level features and neural analysis. The research seeks to contribute to the growing field of digital forensics and ethical AI deployment by providing a reliable method for distinguishing fabricated content in real-world settings.
+  </p>
+
+</body>
+</html>

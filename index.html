@@ -1,184 +1,194 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fahian Al Badar - DevOps & Tech Notes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --accent-color: #28a745;
-            --background-light: #f8f9fa;
-            --background-dark: #343a40;
-            --text-color-light: #343a40;
-            --text-color-dark: #f8f9fa;
-            --card-background: #ffffff;
-            --border-color: #dee2e6;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fahian Al Badar - DevOps & Tech Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --text-color: #343a40;
+      --bg-light: #f8f9fa;
+      --white: #fff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-light);
-            color: var(--text-color-light);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background: var(--bg-light);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 2px 4px var(--shadow);
-        }
+    header {
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      box-shadow: 0 2px 4px var(--shadow);
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            letter-spacing: 1.5px;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
 
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
+    header p {
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
 
-        .container {
-            flex: 1;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+      flex-grow: 1;
+    }
 
-        @media (min-width: 768px) {
-            .container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+    .section-icon {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px var(--shadow);
+      text-align: center;
+      padding: 1.5rem 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
-        .section-card {
-            background-color: var(--card-background);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--shadow);
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease-in-out;
-        }
+    .section-icon:hover {
+      transform: translateY(-5px);
+    }
 
-        .section-card:hover {
-            transform: translateY(-5px);
-        }
+    .section-icon i {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: var(--primary-color);
+    }
 
-        .section-card h2 {
-            color: var(--primary-color);
-            font-size: 1.8em;
-            margin-top: 0;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
+    .section-icon h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
 
-        .section-card h3 {
-            color: var(--secondary-color);
-            font-size: 1.4em;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
+    .file-list {
+      display: none;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 1rem 2rem;
+    }
 
-        .section-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    .file-list h4 {
+      font-size: 1.2rem;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 1rem;
+    }
 
-        .section-card ul li {
-            margin-bottom: 10px;
-        }
+    .file-list ul {
+      list-style: none;
+      padding: 0;
+    }
 
-        .section-card ul li a {
-            text-decoration: none;
-            color: var(--text-color-light);
-            font-weight: 400;
-            display: block;
-            padding: 8px 10px;
-            border-radius: 5px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
+    .file-list li {
+      margin-bottom: 0.5rem;
+    }
 
-        .section-card ul li a:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
+    .file-list a {
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 6px 8px;
+      display: inline-block;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--background-dark);
-            color: var(--text-color-dark);
-            margin-top: 30px;
-            box-shadow: 0 -2px 4px var(--shadow);
-        }
+    .file-list a:hover {
+      background: var(--primary-color);
+      color: white;
+    }
 
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
-        }
-    </style>
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #343a40;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1><span style="font-size: 0.8em;">👨‍💻</span> FAHIAN AL BADAR</h1>
-        <p>Welcome to my technical notes and articles.</p>
-    </header>
+  <header>
+    <h1>👨‍💻 FAHIAN AL BADAR</h1>
+    <p>Welcome to my technical notes and articles.</p>
+  </header>
 
-    <div class="container">
-        <div class="section-card">
-            <h2>Articles</h2>
-            <h3>SECTION 1: DEVOPS NOTES</h3>
-            <ul>
-                <li><a href="devops/1-DevOps-Prerequisites.html">1. DevOps Prerequisites</a></li>
-                <li><a href="devops/2-Assignment1.html">2. Assignment 1</a></li>
-                <li><a href="devops/3-Containerd.html">3. Using containerd</a></li>
-                <li><a href="devops/4-MySQL-Setup.html">4. Creating Dedicated MySQL User</a></li>
-                <li><a href="devops/5-Harbor-Registry.html">5. Setting up Harbor Registry</a></li>
-                <li><a href="devops/6-File-Sharing-XFTP.html">6. File Sharing Using XFTP</a></li>
-                <li><a href="devops/Kubernetes-Jenkins.html">7. Using Kubernetes and Jenkins in Workflow</a></li>
-                <li><a href="devops/8-NGINX-deployment-k0s.html">8. NGINX DEPLOYMENT USING k0s</a></li>
-                <li><a href="devops/9-Docker-Based-Jenkins-Container.html">9. RUNNING A DOCKER BASED JENKINS CONTAINER</a></li>
-                <li><a href="devops/10-Assignment-2.html">10. ASSIGNMENT 2 - Kubernetes Deployment</a></li>
-                <li><a href="devops/11-PHP-Project-Jenkins-Argo.html">11. PHP PROJECT, PIPELINE FOR JENKINS CI AND ARGO CD</a></li>
-                <li><a href="devops/12-Final-Assignment.html">12. FINAL ASSIGNMENT - DevOps Internshipc</a></li> 
-            </ul>
-        </div>
-
-         <div class="section-card">
-            <h2>&nbsp;</h2> <h3>SECTION 2: THESIS WORKFLOW: DETECTION OF AI IMAGES</h3>
-            <ul>
-                <li><a href="aidetection/Update1.html">MODULE 1: Workflow Leading Upto Scope Refinement</a></li>
-            </ul>
-        </div>
-        
-
-        <div class="section-card">
-            <h2>&nbsp;</h2> <h3>SECTION 3: IMAGE PROCESSING WITH PYTHON</h3>
-            <ul>
-                <li><a href="python/Image-processing.html">Image Processing Overview</a></li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="section-icon" onclick="toggleSection('devops')">
+      <i>🛠️</i>
+      <h3>DevOps Notes</h3>
     </div>
+    <div class="section-icon" onclick="toggleSection('thesis')">
+      <i>🧠</i>
+      <h3>AI Detection Thesis</h3>
+    </div>
+    <div class="section-icon" onclick="toggleSection('python')">
+      <i>🖼️</i>
+      <h3>Python Image Processing</h3>
+    </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2025 Fahian Al Badar. All rights reserved.</p>
-    </footer>
+  <!-- File Lists -->
+  <div class="file-list" id="devops">
+    <h4>DevOps Notes</h4>
+    <ul>
+      <li><a href="devops/1-DevOps-Prerequisites.html">1. DevOps Prerequisites</a></li>
+      <li><a href="devops/2-Assignment1.html">2. Assignment 1</a></li>
+      <li><a href="devops/3-Containerd.html">3. Using containerd</a></li>
+      <li><a href="devops/4-MySQL-Setup.html">4. Creating Dedicated MySQL User</a></li>
+      <li><a href="devops/5-Harbor-Registry.html">5. Setting up Harbor Registry</a></li>
+      <li><a href="devops/6-File-Sharing-XFTP.html">6. File Sharing Using XFTP</a></li>
+      <li><a href="devops/Kubernetes-Jenkins.html">7. Kubernetes + Jenkins</a></li>
+      <li><a href="devops/8-NGINX-deployment-k0s.html">8. NGINX Deployment with k0s</a></li>
+      <li><a href="devops/9-Docker-Based-Jenkins-Container.html">9. Docker Jenkins</a></li>
+      <li><a href="devops/10-Assignment-2.html">10. Kubernetes Deployment</a></li>
+      <li><a href="devops/11-PHP-Project-Jenkins-Argo.html">11. PHP + Jenkins CI + Argo CD</a></li>
+      <li><a href="devops/12-Final-Assignment.html">12. Final DevOps Assignment</a></li>
+    </ul>
+  </div>
+
+  <div class="file-list" id="thesis">
+    <h4>Thesis Workflow: Detection of AI Images</h4>
+    <ul>
+      <li><a href="aidetection/Update1.html">Module 1: Scope Refinement Workflow</a></li>
+    </ul>
+  </div>
+
+  <div class="file-list" id="python">
+    <h4>Image Processing with Python</h4>
+    <ul>
+      <li><a href="python/Image-processing.html">Image Processing Overview</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Fahian Al Badar. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleSection(id) {
+      const sections = document.querySelectorAll('.file-list');
+      sections.forEach(section => {
+        section.style.display = (section.id === id && section.style.display !== 'block') ? 'block' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
+
+
+

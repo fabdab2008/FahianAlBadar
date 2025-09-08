@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fahian Al Badar - DevOps & Tech Notes</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --primary-color: #0d6efd;
@@ -28,164 +28,189 @@
     header {
       background: var(--white);
       color: var(--text-color);
-      text-align: center;
-      padding: 2.5rem 1rem;
+      padding: 1rem 1.5rem;
       box-shadow: 0 2px 6px var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.2rem;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
       font-weight: 700;
-      letter-spacing: 0.5px;
     }
 
     header p {
-      font-size: 1.1rem;
-      margin-top: 0.75rem;
+      font-size: clamp(0.8rem, 2vw, 1rem);
       color: #6c757d;
+      margin: 0;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-color);
     }
 
     .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
       flex-grow: 1;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
-    .section-icon {
+    .accordion {
       background: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 2px 8px var(--shadow);
-      text-align: center;
-      padding: 2rem 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: var(--white);
+      color: var(--text-color);
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
       cursor: pointer;
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: flex-start;
+      transition: background 0.3s ease;
     }
 
-    .section-icon:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-
-    .section-icon i {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .accordion-header .icon-left {
+      width: 24px;
+      height: 24px;
       color: var(--primary-color);
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .section-icon h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
+    .accordion-header .chevron {
+      margin-left: auto;
+      color: var(--primary-color);
+      transition: transform 0.3s ease;
     }
 
-    .file-list {
-      display: none;
-      margin: 0 auto;
-      max-width: 900px;
-      padding: 2rem;
-      background: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow);
+    .accordion-header:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    .accordion-header:hover .icon-left,
+    .accordion-header:hover .chevron {
+      color: white;
     }
 
-    .file-list h4 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.25rem;
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: var(--bg-light);
     }
 
-    .file-list ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .file-list li {
-      margin-bottom: 0.75rem;
-    }
-
-    .file-list a {
+    .accordion-content a {
+      display: block;
+      padding: 0.5rem 1rem;
       text-decoration: none;
       color: var(--text-color);
-      padding: 8px 10px;
-      display: inline-block;
-      border-radius: 6px;
-      transition: background 0.25s, color 0.25s;
+      font-size: 0.95rem;
+      transition: background 0.25s;
     }
 
-    .file-list a:hover {
+    .accordion-content a:hover {
       background: var(--primary-color);
       color: white;
     }
 
+    .accordion:hover .accordion-content {
+      max-height: 500px;
+    }
+
     footer {
       text-align: center;
-      padding: 1.25rem;
+      padding: 1rem;
       background: #212529;
       color: #adb5bd;
       font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .container {
+        display: none;
+      }
+      .container.active {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Fahian Al Badar</h1>
-    <p>Technical Notes & Articles on DevOps, AI, and Programming</p>
+    <div>
+      <h1>Fahian Al Badar</h1>
+      <p>Technical Notes & Articles</p>
+    </div>
+    <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
   </header>
 
-  <div class="container">
-    <div class="section-icon" onclick="toggleSection('devops')">
-      <i class="fas fa-server"></i>
-      <h3>DevOps Notes</h3>
+  <div class="container" id="menuContainer">
+    <!-- DevOps Accordion -->
+    <div class="accordion">
+      <button class="accordion-header">
+        <span class="icon-left"><i class="fas fa-server"></i></span> DevOps Notes <i class="fas fa-chevron-down chevron"></i>
+      </button>
+      <div class="accordion-content">
+        <a href="devops/1-DevOps-Prerequisites.html">1. DevOps Prerequisites</a>
+        <a href="devops/2-Assignment1.html">2. Assignment 1</a>
+        <a href="devops/3-Containerd.html">3. Using containerd</a>
+        <a href="devops/4-MySQL-Setup.html">4. Creating Dedicated MySQL User</a>
+        <a href="devops/5-Harbor-Registry.html">5. Setting up Harbor Registry</a>
+        <a href="devops/6-File-Sharing-XFTP.html">6. File Sharing Using XFTP</a>
+        <a href="devops/Kubernetes-Jenkins.html">7. Kubernetes + Jenkins</a>
+        <a href="devops/8-NGINX-deployment-k0s.html">8. NGINX Deployment with k0s</a>
+        <a href="devops/9-Docker-Based-Jenkins-Container.html">9. Docker Jenkins</a>
+        <a href="devops/10-Assignment-2.html">10. Kubernetes Deployment</a>
+        <a href="devops/11-PHP-Project-Jenkins-Argo.html">11. PHP + Jenkins CI + Argo CD</a>
+        <a href="devops/12-Final-Assignment.html">12. Final DevOps Assignment</a>
+      </div>
     </div>
-    <div class="section-icon" onclick="toggleSection('thesis')">
-      <i class="fas fa-brain"></i>
-      <h3>AI Detection Thesis</h3>
+
+    <!-- Thesis Accordion -->
+    <div class="accordion">
+      <button class="accordion-header">
+        <span class="icon-left"><i class="fas fa-brain"></i></span> AI Detection Thesis <i class="fas fa-chevron-down chevron"></i>
+      </button>
+      <div class="accordion-content">
+        <a href="aidetection/Update1.html">Module 1: Scope Refinement Workflow</a>
+      </div>
     </div>
-    <div class="section-icon" onclick="toggleSection('python')">
-      <i class="fas fa-code"></i>
-      <h3>Python Image Processing</h3>
+
+    <!-- Python Accordion -->
+    <div class="accordion">
+      <button class="accordion-header">
+        <span class="icon-left"><i class="fas fa-image"></i></span> Python Image Processing <i class="fas fa-chevron-down chevron"></i>
+      </button>
+      <div class="accordion-content">
+        <a href="python/Image-processing.html">Image Processing Overview</a>
+      </div>
     </div>
-  </div>
-
-  <!-- File Lists -->
-  <div class="file-list" id="devops">
-    <h4>DevOps Notes</h4>
-    <ul>
-      <li><a href="devops/1-DevOps-Prerequisites.html">1. DevOps Prerequisites</a></li>
-      <li><a href="devops/2-Assignment1.html">2. Assignment 1</a></li>
-      <li><a href="devops/3-Containerd.html">3. Using containerd</a></li>
-      <li><a href="devops/4-MySQL-Setup.html">4. Creating Dedicated MySQL User</a></li>
-      <li><a href="devops/5-Harbor-Registry.html">5. Setting up Harbor Registry</a></li>
-      <li><a href="devops/6-File-Sharing-XFTP.html">6. File Sharing Using XFTP</a></li>
-      <li><a href="devops/Kubernetes-Jenkins.html">7. Kubernetes + Jenkins</a></li>
-      <li><a href="devops/8-NGINX-deployment-k0s.html">8. NGINX Deployment with k0s</a></li>
-      <li><a href="devops/9-Docker-Based-Jenkins-Container.html">9. Docker Jenkins</a></li>
-      <li><a href="devops/10-Assignment-2.html">10. Kubernetes Deployment</a></li>
-      <li><a href="devops/11-PHP-Project-Jenkins-Argo.html">11. PHP + Jenkins CI + Argo CD</a></li>
-      <li><a href="devops/12-Final-Assignment.html">12. Final DevOps Assignment</a></li>
-    </ul>
-  </div>
-
-  <div class="file-list" id="thesis">
-    <h4>Thesis Workflow: Detection of AI Images</h4>
-    <ul>
-      <li><a href="aidetection/Update1.html">Module 1: Scope Refinement Workflow</a></li>
-    </ul>
-  </div>
-
-  <div class="file-list" id="python">
-    <h4>Image Processing with Python</h4>
-    <ul>
-      <li><a href="python/Image-processing.html">Image Processing Overview</a></li>
-    </ul>
   </div>
 
   <footer>
@@ -193,11 +218,8 @@
   </footer>
 
   <script>
-    function toggleSection(id) {
-      const sections = document.querySelectorAll('.file-list');
-      sections.forEach(section => {
-        section.style.display = (section.id === id && section.style.display !== 'block') ? 'block' : 'none';
-      });
+    function toggleMenu() {
+      document.getElementById('menuContainer').classList.toggle('active');
     }
   </script>
 </body>

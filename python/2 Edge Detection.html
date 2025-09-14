@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edge Detection in Image Processing</title>
-  <!-- Google Font + Font Awesome (optional, consistent with theme) -->
+  <!-- Google Font + Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!-- Link to the shared custom theme CSS -->
+  <!-- Link to the shared navy-cyan theme -->
   <link rel="stylesheet" href="css/custom-theme.css">
-  
+
+  <!-- Page-specific CSS (optional minimal tweaks) -->
   <style>
-    /* Page-specific tweaks */
+    /* Only page-specific tweaks */
     h2 {
       color: var(--accent);
       margin-top: 1.5rem;
@@ -35,53 +36,61 @@
       margin-bottom: 10px;
       color: #e6eef8;
     }
+    code {
+      background: rgba(0,0,0,0.25);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      color: #cde;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>Purpose and Significance of Edge Detection in Image Processing</h2>
+  <div class="wrap">
+    <div class="container">
+      <h2>Purpose and Significance of Edge Detection in Image Processing</h2>
 
-    <h3>Identification of Object Boundaries:</h3>
-    <p>Edge detection is essential for identifying sharp discontinuities in pixel intensity, which typically correspond to boundaries between objects within an image. These boundaries are critical for object recognition, segmentation, and scene understanding.</p>
+      <h3>Identification of Object Boundaries:</h3>
+      <p>Edge detection is essential for identifying sharp discontinuities in pixel intensity, which typically correspond to boundaries between objects within an image. These boundaries are critical for object recognition, segmentation, and scene understanding.</p>
 
-    <h3>Reduction of Data for Further Processing:</h3>
-    <p>By extracting only the structural features (edges), the amount of data to be analyzed is reduced, facilitating faster and more efficient image analysis, classification, and recognition.</p>
+      <h3>Reduction of Data for Further Processing:</h3>
+      <p>By extracting only the structural features (edges), the amount of data to be analyzed is reduced, facilitating faster and more efficient image analysis, classification, and recognition.</p>
 
-    <h3>Enhancement of Important Features:</h3>
-    <p>Edge detection enhances salient image features, making it easier to interpret visual content and enabling downstream tasks such as contour detection and shape analysis.</p>
+      <h3>Enhancement of Important Features:</h3>
+      <p>Edge detection enhances salient image features, making it easier to interpret visual content and enabling downstream tasks such as contour detection and shape analysis.</p>
 
+      <h2>Interrelated Concepts of Sobel Operator</h2>
 
-    <h2>Interrelated Concepts of Sobel Operator</h2>
+      <h3>Image Intensity (Grayscale Conversion):</h3>
+      <p>Intensity refers to the brightness level of each pixel in an image. Color images are commonly converted to grayscale using a weighted formula (e.g., I = 0.299R + 0.587G + 0.114B) to simplify processing by representing images in terms of luminance rather than color.</p>
 
-    <h3>Image Intensity (Grayscale Conversion):</h3>
-    <p>Intensity refers to the brightness level of each pixel in an image. Color images are commonly converted to grayscale using a weighted formula (e.g., I = 0.299R + 0.587G + 0.114B) to simplify processing by representing images in terms of luminance rather than color.</p>
+      <h3>Kernels (Convolution Masks):</h3>
+      <p>A kernel is a small matrix used in convolution operations to detect features such as edges. It slides over the image and computes a weighted sum of neighboring pixels to highlight patterns or changes in intensity.</p>
 
-    <h3>Kernels (Convolution Masks):</h3>
-    <p>A kernel is a small matrix used in convolution operations to detect features such as edges. It slides over the image and computes a weighted sum of neighboring pixels to highlight patterns or changes in intensity.</p>
+      <h3>Sobel Operator:</h3>
+      <p>The Sobel operator is a widely used edge detection kernel that emphasizes changes in intensity in horizontal and vertical directions. It applies two separate 3×3 convolution kernels (Sobel X and Sobel Y) to approximate the image gradient. The magnitude of this gradient reveals edge strength.</p>
 
-    <h3>Sobel Operator:</h3>
-    <p>The Sobel operator is a widely used edge detection kernel that emphasizes changes in intensity in horizontal and vertical directions. It applies two separate 3×3 convolution kernels (Sobel X and Sobel Y) to approximate the image gradient. The magnitude of this gradient reveals edge strength.</p>
+      <h3>Gradient Magnitude and Direction:</h3>
+      <p>The output of the Sobel operator reflects the gradient of intensity at each pixel, which is used to determine both the presence and direction of edges. The overall gradient magnitude is computed using the formula:</p>
+      <p><code>G = √((Gx)² + (Gy)²)</code></p>
 
-    <h3>Gradient Magnitude and Direction:</h3>
-    <p>The output of the Sobel operator reflects the gradient of intensity at each pixel, which is used to determine both the presence and direction of edges. The overall gradient magnitude is computed using the formula:</p>
-    <p><code>G = √((Gx)² + (Gy)²)</code></p>
+      <!-- Demo Image Placeholder -->
+      <img src="tumor thesis image/unnamed.png" alt="Original Image, Canny and Sobel Edge Detected Images (L to R)">
 
-    <!-- Demo Image Placeholder -->
-    <img src="tumor thesis image/unnamed.png" alt="Original Image, Canny and Sobel Edge Detected Images (L to R)">
+      <h2>Explanation of MRI Images with Edge Detection:</h2>
 
-    <h2>Explanation of MRI Images with Edge Detection:</h2>
+      <p>This image shows how a computer can help doctors understand what's happening inside your brain by highlighting important boundaries using a technique called edge detection.</p>
 
-    <p>This image shows how a computer can help doctors understand what's happening inside your brain by highlighting important boundaries using a technique called edge detection.</p>
+      <h3>Left Image – Original MRI Scan:</h3>
+      <p>This is a normal brain scan. It shows all the internal structures of the brain, but it can be hard to see the outlines of specific areas, especially where a tumor might be.</p>
 
-    <h3>Left Image – Original MRI Scan:</h3>
-    <p>This is a normal brain scan. It shows all the internal structures of the brain, but it can be hard to see the outlines of specific areas, especially where a tumor might be.</p>
+      <h3>Middle Image – Canny Edge Detection:</h3>
+      <p>The computer has picked out only the strongest and clearest lines, showing the most important edges — like the border of the brain or any unusual shapes. This helps doctors spot things like tumors more easily.</p>
 
-    <h3>Middle Image – Canny Edge Detection:</h3>
-    <p>The computer has picked out only the strongest and clearest lines, showing the most important edges — like the border of the brain or any unusual shapes. This helps doctors spot things like tumors more easily.</p>
-
-    <h3>Right Image – Sobel Edge Detection:</h3>
-    <p>This one picks up a lot more edges, including small changes in texture. While it's more detailed, it might also include a lot of extra, less important information, which can sometimes make it harder to focus on what really matters.</p>
+      <h3>Right Image – Sobel Edge Detection:</h3>
+      <p>This one picks up a lot more edges, including small changes in texture. While it's more detailed, it might also include a lot of extra, less important information, which can sometimes make it harder to focus on what really matters.</p>
+    </div>
   </div>
 
   <footer>

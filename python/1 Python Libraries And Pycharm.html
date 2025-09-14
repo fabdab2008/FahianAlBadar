@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dabbling with Python Libraries — Image Processing</title>
+  <style>
+    :root{
+      --bg:#0f1724;--card:#0b1220;--muted:#93a5c6;--accent:#7dd3fc;--glass: rgba(255,255,255,0.03);
+      --radius:12px; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071026 0%, #081226 60%);color:#e6eef8}
+    .wrap{max-width:980px;margin:40px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;box-shadow:0 8px 30px rgba(2,6,23,0.7);}
+    header{display:flex;gap:18px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042433}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{color:var(--muted);margin-top:10px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:22px}
+    main{background:var(--card);padding:18px;border-radius:12px}
+    aside{background:var(--glass);padding:18px;border-radius:12px;color:var(--muted)}
+    section{margin-bottom:16px}
+    h2{margin:0 0 8px 0;font-size:1.05rem}
+    ul{margin:8px 0 0 20px}
+    code{background:rgba(0,0,0,0.25);padding:4px 8px;border-radius:6px;font-family:monospace;color:#cde}
+    pre{background:rgba(0,0,0,0.25);padding:12px;border-radius:8px;overflow:auto}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#60a5fa);color:#042433;text-decoration:none;font-weight:600}
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem}
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.logo{width:54px;height:54px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">PY</div>
+      <div>
+        <h1>Dabbling with Python Libraries</h1>
+        <p class="lead">A concise overview of popular Python libraries used in image processing and the role of PyCharm in project development.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section>
+          <h2>Introduction</h2>
+          <p>Python libraries are widely used in image processing due to their simplicity, versatility, and the extensive ecosystem of specialized tools they offer. They cover everything from basic manipulation to advanced deep-learning-based analysis.</p>
+        </section>
+
+        <section>
+          <h2>Key Libraries</h2>
+          <p>Below are concise descriptions of commonly used libraries and what they bring to image-processing workflows.</p>
+
+          <article>
+            <h3>OpenCV</h3>
+            <p>Offers a comprehensive suite of tools for advanced image processing tasks, including filtering, object detection, feature extraction, and real-time video analysis.</p>
+          </article>
+
+          <article>
+            <h3>Pillow (PIL)</h3>
+            <p>Provides essential functionalities for basic image manipulation such as resizing, cropping, rotating, and format conversion.</p>
+          </article>
+
+          <article>
+            <h3>NumPy</h3>
+            <p>Facilitates pixel-level operations by representing images as multidimensional arrays, enabling efficient numerical computation and manipulation.</p>
+          </article>
+
+          <article>
+            <h3>scikit-image</h3>
+            <p>Delivers a collection of high-level algorithms for scientific and medical image analysis, supporting tasks such as segmentation, filtering, and morphological operations.</p>
+          </article>
+
+          <article>
+            <h3>TensorFlow &amp; PyTorch</h3>
+            <p>Widely adopted in deep learning applications, these libraries are used for tasks like image classification, object detection, and facial recognition using CNNs and other architectures.</p>
+          </article>
+        </section>
+
+        <section>
+          <h2>Short Code Example</h2>
+          <p>Here is a tiny example showing how to read an image with OpenCV, convert to grayscale, and save it:</p>
+          <pre><code>import cv2
+img = cv2.imread('input.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imwrite('output_gray.jpg', gray)
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Tips for Choosing Libraries</h2>
+          <ul>
+            <li>Use <strong>Pillow</strong> for simple file-format handling and quick manipulation.</li>
+            <li>Use <strong>OpenCV</strong> when you need speed and a broad set of computer-vision algorithms.</li>
+            <li>Use <strong>NumPy</strong> whenever you manipulate image data at the pixel level.</li>
+            <li>Use <strong>scikit-image</strong> for research-oriented image analysis pipelines.</li>
+            <li>Use <strong>TensorFlow/PyTorch</strong> for deep-learning models and large-scale training.</li>
+          </ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <h2>Role of PyCharm</h2>
+        <p>PyCharm is a robust Integrated Development Environment (IDE) designed specifically for Python. It improves development efficiency through features like syntax highlighting, autocompletion, debugging, and virtual-environment management.</p>
+
+        <h3>Why it helps in image-processing projects</h3>
+        <ul>
+          <li>Project and dependency management (virtualenv/conda).</li>
+          <li>Integrated debugger and test runner for rapid iteration.</li>
+          <li>Code inspections and linting to help keep pipelines stable.</li>
+          <li>Code snippets and run configurations to easily prototype scripts.</li>
+        </ul>
+
+        <p>Example: Implementing a script to read an image, convert to grayscale using OpenCV, and preview results can be done directly in PyCharm's run console, with breakpoints for inspection.</p>
+
+        <p style="margin-top:12px"><a class="btn" href="#" onclick="alert('This is a static HTML preview. Save this file and open in your browser to run code examples locally.')">Preview notes</a></p>
+
+        <footer>
+          <p>Made for quick reading and sharing. Want this exported as a downloadable HTML file or converted to PDF?</p>
+        </footer>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
